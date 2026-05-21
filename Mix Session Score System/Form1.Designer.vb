@@ -35,12 +35,13 @@ Partial Class Form1
         Me.txtNotes = New System.Windows.Forms.TextBox()
         Me.btnSaveSession = New System.Windows.Forms.Button()
         Me.chkVocalsEdited = New System.Windows.Forms.CheckBox()
-        Me.chkLevelIsBalanced = New System.Windows.Forms.CheckBox()
+        Me.chkGainStaging = New System.Windows.Forms.CheckBox()
         Me.chkEQCleanup = New System.Windows.Forms.CheckBox()
         Me.chkCompression = New System.Windows.Forms.CheckBox()
-        Me.chkDeBreath = New System.Windows.Forms.CheckBox()
+        Me.chkDeBreathing = New System.Windows.Forms.CheckBox()
         Me.chkDeEssing = New System.Windows.Forms.CheckBox()
         Me.chkExportSettings = New System.Windows.Forms.CheckBox()
+        Me.btnCalculateScore = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'Label1
@@ -126,10 +127,10 @@ Partial Class Form1
         '
         'txtNotes
         '
-        Me.txtNotes.Location = New System.Drawing.Point(66, 175)
+        Me.txtNotes.Location = New System.Drawing.Point(66, 159)
         Me.txtNotes.Multiline = True
         Me.txtNotes.Name = "txtNotes"
-        Me.txtNotes.Size = New System.Drawing.Size(354, 91)
+        Me.txtNotes.Size = New System.Drawing.Size(354, 107)
         Me.txtNotes.TabIndex = 10
         '
         'btnSaveSession
@@ -151,15 +152,15 @@ Partial Class Form1
         Me.chkVocalsEdited.Text = "Vocals Edited" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         Me.chkVocalsEdited.UseVisualStyleBackColor = True
         '
-        'chkLevelIsBalanced
+        'chkGainStaging
         '
-        Me.chkLevelIsBalanced.AutoSize = True
-        Me.chkLevelIsBalanced.Location = New System.Drawing.Point(504, 42)
-        Me.chkLevelIsBalanced.Name = "chkLevelIsBalanced"
-        Me.chkLevelIsBalanced.Size = New System.Drawing.Size(150, 19)
-        Me.chkLevelIsBalanced.TabIndex = 13
-        Me.chkLevelIsBalanced.Text = "Gain Staging COmplete"
-        Me.chkLevelIsBalanced.UseVisualStyleBackColor = True
+        Me.chkGainStaging.AutoSize = True
+        Me.chkGainStaging.Location = New System.Drawing.Point(504, 42)
+        Me.chkGainStaging.Name = "chkGainStaging"
+        Me.chkGainStaging.Size = New System.Drawing.Size(148, 19)
+        Me.chkGainStaging.TabIndex = 13
+        Me.chkGainStaging.Text = "Gain Staging Complete"
+        Me.chkGainStaging.UseVisualStyleBackColor = True
         '
         'chkEQCleanup
         '
@@ -181,15 +182,15 @@ Partial Class Form1
         Me.chkCompression.Text = "Compression Applied"
         Me.chkCompression.UseVisualStyleBackColor = True
         '
-        'chkDeBreath
+        'chkDeBreathing
         '
-        Me.chkDeBreath.AutoSize = True
-        Me.chkDeBreath.Location = New System.Drawing.Point(504, 159)
-        Me.chkDeBreath.Name = "chkDeBreath"
-        Me.chkDeBreath.Size = New System.Drawing.Size(151, 19)
-        Me.chkDeBreath.TabIndex = 16
-        Me.chkDeBreath.Text = "De-Breathing Complete"
-        Me.chkDeBreath.UseVisualStyleBackColor = True
+        Me.chkDeBreathing.AutoSize = True
+        Me.chkDeBreathing.Location = New System.Drawing.Point(504, 159)
+        Me.chkDeBreathing.Name = "chkDeBreathing"
+        Me.chkDeBreathing.Size = New System.Drawing.Size(151, 19)
+        Me.chkDeBreathing.TabIndex = 16
+        Me.chkDeBreathing.Text = "De-Breathing Complete"
+        Me.chkDeBreathing.UseVisualStyleBackColor = True
         '
         'chkDeEssing
         '
@@ -211,17 +212,27 @@ Partial Class Form1
         Me.chkExportSettings.Text = "Export Settings Checked"
         Me.chkExportSettings.UseVisualStyleBackColor = True
         '
+        'btnCalculateScore
+        '
+        Me.btnCalculateScore.Location = New System.Drawing.Point(504, 328)
+        Me.btnCalculateScore.Name = "btnCalculateScore"
+        Me.btnCalculateScore.Size = New System.Drawing.Size(166, 23)
+        Me.btnCalculateScore.TabIndex = 19
+        Me.btnCalculateScore.Text = "Calculate Readiness Score"
+        Me.btnCalculateScore.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.Controls.Add(Me.btnCalculateScore)
         Me.Controls.Add(Me.chkExportSettings)
         Me.Controls.Add(Me.chkDeEssing)
-        Me.Controls.Add(Me.chkDeBreath)
+        Me.Controls.Add(Me.chkDeBreathing)
         Me.Controls.Add(Me.chkCompression)
         Me.Controls.Add(Me.chkEQCleanup)
-        Me.Controls.Add(Me.chkLevelIsBalanced)
+        Me.Controls.Add(Me.chkGainStaging)
         Me.Controls.Add(Me.chkVocalsEdited)
         Me.Controls.Add(Me.btnSaveSession)
         Me.Controls.Add(Me.txtNotes)
@@ -255,10 +266,11 @@ Partial Class Form1
     Friend WithEvents txtNotes As TextBox
     Friend WithEvents btnSaveSession As Button
     Friend WithEvents chkVocalsEdited As CheckBox
-    Friend WithEvents chkLevelIsBalanced As CheckBox
+    Friend WithEvents chkGainStaging As CheckBox
     Friend WithEvents chkEQCleanup As CheckBox
     Friend WithEvents chkCompression As CheckBox
-    Friend WithEvents chkDeBreath As CheckBox
+    Friend WithEvents chkDeBreathing As CheckBox
     Friend WithEvents chkDeEssing As CheckBox
     Friend WithEvents chkExportSettings As CheckBox
+    Friend WithEvents btnCalculateScore As Button
 End Class

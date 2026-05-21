@@ -67,7 +67,34 @@ Public Class Form1
         'DISPLAYS CONFIRMATION OF THE DATA THAT Is BEING STORED
         MessageBox.Show(songTitle & vbCrLf & artist & vbCrLf & bpm & vbCrLf & musicalKey & vbCrLf & notes)
     End Sub
+    'CALCULATE THE READINESS PERCENTAGE BASED ON CHECKLIST ITEMS. BECAUSE THE FUNCTION ON NEEDS TWO
+    'NUMBERS TO RETURN ONE SCORE, THIS SUFFICES AS TESTABLE CODE.
+    Private Function CalculateReadinessScore(completedTasks As Integer, totalTasks As Integer) As Integer
+        If totalTasks = 0 Then
+            Return 0
+        End If
 
+        Return CInt((completedTasks / totalTasks * 100))
+    End Function
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    End Sub
+
+    Private Sub btnCalculateScore_Click(sender As Object, e As EventArgs) Handles btnCalculateScore.Click
+        Dim completedTasks As Integer = 0
+        Dim totalTasks As Integer = 7
+
+        If chkVocalsEdited.Checked Then completedTasks += 1
+        If chkGainStaging.Checked Then completedTasks += 1
+        If chkEQCleanup.Checked Then completedTasks += 1
+        If chkCompression.Checked Then completedTasks += 1
+        If chkExportSettings.Checked Then completedTasks += 1
+        If chkDeBreathing.CHecked Then completedTasks += 1
+        If chkDeEssing.Checked Then completedTasks += 1
+
+        Dim readinessScore As Integer
+        readinessScore = CalculateReadinessScore(completedTasks, totalTasks)
+
+        MessageBox.Show("Rediness Score: " & readinessScore & "%")
+
     End Sub
 End Class
