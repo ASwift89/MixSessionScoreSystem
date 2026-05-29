@@ -1,5 +1,8 @@
 ﻿Imports System.Data.SQLite
 Public Class Form1
+
+    Private completedTasks As Integer = 0
+    Private totalTasks As Integer = 7
     Private Sub Label1_Click(sender As Object, e As EventArgs) Handles Label1.Click
 
     End Sub
@@ -19,6 +22,7 @@ Public Class Form1
         Dim musicalKey As String = txtKey.Text
         Dim notes As String = txtNotes.Text
         Dim connectionString As String = "Data Source=sessions2.db;Version=3;"
+        Dim readinessScore As Integer = CalculateReadinessScore(completedTasks, totalTasks)
 
         'THIS CONNECTION STRING TELLS SQLITE WHAT DATABASE FILE TO CREATE AND USE
         Dim connection As New SQLiteConnection(connectionString)
@@ -28,6 +32,7 @@ Public Class Form1
 
         'REMOVES THE OLD SESSIONS TABLE DURING TESTING SO INCORRECT COLUMNS DO NOT REMAIN
         '(DURING DEVELOPMENT, OLD TABLE COLUMNS WERE STUCK IN THE DATABASE POST MODIFICATIONS
+
         Dim dropTableCommand As New SQLiteCommand("DROP TABLE IF EXISTS Sessions", connection)
 
         'SQL QUERY USED TO CREATE THE SESSIONS TABLE WITH THE CORRECT COLUMN NAMES
@@ -38,17 +43,20 @@ Public Class Form1
             "Artist TEXT, " &
             "BPM TEXT, " &
             "MusicalKey TEXT, " &
-            "Notes TEXT)"
+            "Notes TEXT, " &
+            "ReadinessScore TEXT)"
+
         'EXECUTES THE DROP TABLE COMMAND
         dropTableCommand.ExecuteNonQuery()
         Dim createTableCommand As New SQLiteCommand(createTableQuery, connection)
+        createTableCommand.ExecuteNonQuery()
 
         'CREATES THE SESSIONS TABLE IN THE DATABASE IF IT DOESNT ALREADY EXIST
         createTableCommand.ExecuteNonQuery().ToString()
         'SQLite INSERT QUERY USED TO SAVE THE SESSION INFORMATION INTO THE DATABAS TABLE
         Dim insertQuery As String =
-            "insert INTO Sessions (SongTitle, Artist, BPM, MusicalKey, Notes)" &
-            "VALUES (@SongTitle, @Artist, @BPM, @MusicalKey, @Notes)"
+            "insert INTO Sessions (SongTitle, Artist, BPM, MusicalKey, Notes, ReadinessScore)" &
+            "VALUES (@SongTitle, @Artist, @BPM, @MusicalKey, @Notes, @ReadinessScore)"
 
         'CREATES THE SQL COMMAND OBJECT FOR THE INSERT QUERY
         Dim insertCommand As New SQLiteCommand(insertQuery, connection)
@@ -58,6 +66,7 @@ Public Class Form1
         insertCommand.Parameters.AddWithValue("@BPM", bpm)
         insertCommand.Parameters.AddWithValue("@MusicalKey", musicalKey)
         insertCommand.Parameters.AddWithValue("@Notes", notes)
+        insertCommand.Parameters.AddWithValue("@ReadinessScore", readinessScore)
         'ACTUALLY SAVES SESSION INTO THE DATABASE
         insertCommand.ExecuteNonQuery()
 
@@ -80,15 +89,14 @@ Public Class Form1
     End Sub
 
     Private Sub btnCalculateScore_Click(sender As Object, e As EventArgs) Handles btnCalculateScore.Click
-        Dim completedTasks As Integer = 0
-        Dim totalTasks As Integer = 7
 
+        completedTasks = 0
         If chkVocalsEdited.Checked Then completedTasks += 1
         If chkGainStaging.Checked Then completedTasks += 1
         If chkEQCleanup.Checked Then completedTasks += 1
         If chkCompression.Checked Then completedTasks += 1
         If chkExportSettings.Checked Then completedTasks += 1
-        If chkDeBreathing.CHecked Then completedTasks += 1
+        If chkDeBreathing.Checked Then completedTasks += 1
         If chkDeEssing.Checked Then completedTasks += 1
 
         Dim readinessScore As Integer
@@ -96,5 +104,56 @@ Public Class Form1
 
         MessageBox.Show("Rediness Score: " & readinessScore & "%")
 
+    End Sub
+    'This section creates the button click event handler for the Session
+    'Metadata Search feature. When the user presses the Search button,
+    'this triggers the logic responsible for retrieving matching
+    'session information from the SQLite database based on the metadata entered
+    'into the search field.
+    Private Sub btnSearchSessions_Click(sender As Object, e As EventArgs) Handles btnSearchSessions.Click
+        Dim searchValue As String = txtSearch.Text
+        Dim connectionString As String = "Data Source=sessions2.db;Version=3;"
+        Using connection As New SQLiteConnection(connectionString)
+
+
+            connection.Open()
+            Dim createTableQuery As String =
+                "CREATE TABLE IF NOT EXISTS Sessions (" &
+                "Id INTEGER PRIMARY KEY AUTOINCREMENT, " &
+                "SongTitle TEXT, " &
+                "Artist TEXT, " &
+                "BPM TEXT, " &
+                "MusicalKey TEXT, " &
+                "Notes TEXT, " &
+                "ReadinessScore TEXT)"
+
+            Dim createTableCommand As New SQLiteCommand(createTableQuery, connection)
+            createTableCommand.ExecuteNonQuery()
+            Dim query As String = "Select * FROM Sessions WHERE SongTitle Like @search Or Artist Like @search"
+            Dim command As New SQLiteCommand(query, connection)
+
+            command.Parameters.AddWithValue("@search", "%" & searchValue & "%")
+            Dim reader As SQLiteDataReader = command.ExecuteReader()
+            Dim foundResult As Boolean = False
+
+            'CREATES A LOOP THAT WILL GO THROUGH EVERY MATCHING SESSION RETURNED FROM THE DATABASE SEARCH
+            While reader.Read()
+                'PULLS MATCHING DATABASE VALUES OUT OF EACH RETURNED SESSION RECORD
+                Dim songTitle As String = reader("SongTitle").ToString()
+                Dim artist As String = reader("Artist").ToString()
+                Dim readinessScore As String = reader("ReadinessScore").ToString()
+
+                foundResult = True
+
+                MessageBox.Show("Song: " & songTitle & vbCrLf &
+                                "Artist: " & artist & vbCrLf &
+                                "Readiness Score: " & readinessScore & "%")
+
+
+            End While
+            If foundResult = False Then
+                MessageBox.Show("No matching session found.")
+            End If
+        End Using
     End Sub
 End Class

@@ -42,6 +42,9 @@ Partial Class Form1
         Me.chkDeEssing = New System.Windows.Forms.CheckBox()
         Me.chkExportSettings = New System.Windows.Forms.CheckBox()
         Me.btnCalculateScore = New System.Windows.Forms.Button()
+        Me.srchSessions = New System.Windows.Forms.Label()
+        Me.txtSearch = New System.Windows.Forms.TextBox()
+        Me.btnSearchSessions = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'Label1
@@ -145,7 +148,7 @@ Partial Class Form1
         'chkVocalsEdited
         '
         Me.chkVocalsEdited.AutoSize = True
-        Me.chkVocalsEdited.Location = New System.Drawing.Point(504, 5)
+        Me.chkVocalsEdited.Location = New System.Drawing.Point(574, 20)
         Me.chkVocalsEdited.Name = "chkVocalsEdited"
         Me.chkVocalsEdited.Size = New System.Drawing.Size(95, 19)
         Me.chkVocalsEdited.TabIndex = 12
@@ -155,7 +158,7 @@ Partial Class Form1
         'chkGainStaging
         '
         Me.chkGainStaging.AutoSize = True
-        Me.chkGainStaging.Location = New System.Drawing.Point(504, 42)
+        Me.chkGainStaging.Location = New System.Drawing.Point(574, 57)
         Me.chkGainStaging.Name = "chkGainStaging"
         Me.chkGainStaging.Size = New System.Drawing.Size(148, 19)
         Me.chkGainStaging.TabIndex = 13
@@ -165,7 +168,7 @@ Partial Class Form1
         'chkEQCleanup
         '
         Me.chkEQCleanup.AutoSize = True
-        Me.chkEQCleanup.Location = New System.Drawing.Point(504, 81)
+        Me.chkEQCleanup.Location = New System.Drawing.Point(574, 96)
         Me.chkEQCleanup.Name = "chkEQCleanup"
         Me.chkEQCleanup.Size = New System.Drawing.Size(143, 19)
         Me.chkEQCleanup.TabIndex = 14
@@ -175,7 +178,7 @@ Partial Class Form1
         'chkCompression
         '
         Me.chkCompression.AutoSize = True
-        Me.chkCompression.Location = New System.Drawing.Point(504, 121)
+        Me.chkCompression.Location = New System.Drawing.Point(574, 136)
         Me.chkCompression.Name = "chkCompression"
         Me.chkCompression.Size = New System.Drawing.Size(140, 19)
         Me.chkCompression.TabIndex = 15
@@ -185,7 +188,7 @@ Partial Class Form1
         'chkDeBreathing
         '
         Me.chkDeBreathing.AutoSize = True
-        Me.chkDeBreathing.Location = New System.Drawing.Point(504, 159)
+        Me.chkDeBreathing.Location = New System.Drawing.Point(574, 174)
         Me.chkDeBreathing.Name = "chkDeBreathing"
         Me.chkDeBreathing.Size = New System.Drawing.Size(151, 19)
         Me.chkDeBreathing.TabIndex = 16
@@ -195,7 +198,7 @@ Partial Class Form1
         'chkDeEssing
         '
         Me.chkDeEssing.AutoSize = True
-        Me.chkDeEssing.Location = New System.Drawing.Point(504, 196)
+        Me.chkDeEssing.Location = New System.Drawing.Point(574, 211)
         Me.chkDeEssing.Name = "chkDeEssing"
         Me.chkDeEssing.Size = New System.Drawing.Size(123, 19)
         Me.chkDeEssing.TabIndex = 17
@@ -205,7 +208,7 @@ Partial Class Form1
         'chkExportSettings
         '
         Me.chkExportSettings.AutoSize = True
-        Me.chkExportSettings.Location = New System.Drawing.Point(504, 232)
+        Me.chkExportSettings.Location = New System.Drawing.Point(574, 247)
         Me.chkExportSettings.Name = "chkExportSettings"
         Me.chkExportSettings.Size = New System.Drawing.Size(153, 19)
         Me.chkExportSettings.TabIndex = 18
@@ -214,18 +217,46 @@ Partial Class Form1
         '
         'btnCalculateScore
         '
-        Me.btnCalculateScore.Location = New System.Drawing.Point(504, 328)
+        Me.btnCalculateScore.Location = New System.Drawing.Point(574, 302)
         Me.btnCalculateScore.Name = "btnCalculateScore"
         Me.btnCalculateScore.Size = New System.Drawing.Size(166, 23)
         Me.btnCalculateScore.TabIndex = 19
         Me.btnCalculateScore.Text = "Calculate Readiness Score"
         Me.btnCalculateScore.UseVisualStyleBackColor = True
         '
+        'srchSessions
+        '
+        Me.srchSessions.AutoSize = True
+        Me.srchSessions.Location = New System.Drawing.Point(222, 5)
+        Me.srchSessions.Name = "srchSessions"
+        Me.srchSessions.Size = New System.Drawing.Size(89, 15)
+        Me.srchSessions.TabIndex = 20
+        Me.srchSessions.Text = "Search Sessions"
+        '
+        'txtSearch
+        '
+        Me.txtSearch.Location = New System.Drawing.Point(318, 3)
+        Me.txtSearch.Name = "txtSearch"
+        Me.txtSearch.Size = New System.Drawing.Size(180, 23)
+        Me.txtSearch.TabIndex = 21
+        '
+        'btnSearchSessions
+        '
+        Me.btnSearchSessions.Location = New System.Drawing.Point(376, 32)
+        Me.btnSearchSessions.Name = "btnSearchSessions"
+        Me.btnSearchSessions.Size = New System.Drawing.Size(75, 23)
+        Me.btnSearchSessions.TabIndex = 22
+        Me.btnSearchSessions.Text = "Search"
+        Me.btnSearchSessions.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.Controls.Add(Me.btnSearchSessions)
+        Me.Controls.Add(Me.txtSearch)
+        Me.Controls.Add(Me.srchSessions)
         Me.Controls.Add(Me.btnCalculateScore)
         Me.Controls.Add(Me.chkExportSettings)
         Me.Controls.Add(Me.chkDeEssing)
@@ -273,4 +304,7 @@ Partial Class Form1
     Friend WithEvents chkDeEssing As CheckBox
     Friend WithEvents chkExportSettings As CheckBox
     Friend WithEvents btnCalculateScore As Button
+    Friend WithEvents srchSessions As Label
+    Friend WithEvents txtSearch As TextBox
+    Friend WithEvents btnSearchSessions As Button
 End Class
